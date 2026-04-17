@@ -296,15 +296,19 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#前言">前言</a></li>
-  </ol>
-
-  <ol>
-    <li><a href="#1校园网绕过多设备限制原理">1.校园网绕过多设备限制原理</a></li>
-  </ol>
-
-  <ol>
-    <li><a href="#21无线中继有线可以跳过">2.1无线中继(有线可以跳过)</a></li>
+    <li><a href="#校园网绕过多设备限制原理">校园网绕过多设备限制原理</a></li>
+    <li><a href="#drcom-web认证">Drcom web认证</a>
+      <ol>
+        <li><a href="#无线中继有线可以跳过">无线中继(有线可以跳过)</a></li>
+        <li><a href="#drcom-web认证-1">Drcom web认证</a>
+          <ol>
+            <li><a href="#配置获取">配置获取</a></li>
+            <li><a href="#drcom登录脚本">DrCOM登录脚本</a></li>
+          </ol>
+        </li>
+        <li><a href="#openwrt插件">openwrt插件</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -404,14 +408,14 @@
     <section class="article-content">
     
     
-    <h2 id="前言">前言
-</h2><p>在大二上时期也就是2025年下半年学校放弃了宽带，全面转变成WIFI,故方案采取的是无线中继 + web认证方式<br>
+    <h1 id="前言">前言
+</h1><p>在大二上时期也就是2025年下半年学校放弃了宽带，全面转变成WIFI,故方案采取的是无线中继 + web认证方式<br>
 感谢博客园大佬1v7w的帖子</p>
 <blockquote>
 <p>1v7w原帖子地址:https://www.cnblogs.com/1v7w/p/17642767.html</p>
 </blockquote>
 <h1 id="正文">正文
-</h1><h2 id="1校园网绕过多设备限制原理">1.校园网绕过多设备限制原理
+</h1><h2 id="校园网绕过多设备限制原理">校园网绕过多设备限制原理
 </h2><p>绕过多设备上网检测原理不在赘述,会在本小节结尾贴出对应的网址。<br>
 分别有UA3F,UA2F,UA-MASK可以绕过。笔者用的是UA3F。(会在本小节结尾贴出各自的github地址与UA3F官方教程)<br>
 UA3F的官方教程已经很简单了,故不会重复说明.请参考官方教程。</p>
@@ -422,9 +426,9 @@ UA3F官方使用教程:https://sunbk201public.notion.site/UA3F-2a21f32cbb4b80669
 UA2F github地址:https://github.com/Zxilly/UA2F<br>
 UA-MASK github地址:https://github.com/Zesuy/UA-Mask</p>
 </blockquote>
-<h1 id="2drcom-web认证">2.Drcom web认证
-</h1><h2 id="21无线中继有线可以跳过">2.1无线中继(有线可以跳过)
-</h2><p>点击网络——无线,找到并点击扫描
+<h2 id="drcom-web认证">Drcom web认证
+</h2><h3 id="无线中继有线可以跳过">无线中继(有线可以跳过)
+</h3><p>点击网络——无线,找到并点击扫描
 <img src="/p/chinese/1.png"
 	width="1900"
 	height="874"
@@ -485,10 +489,10 @@ UA-MASK github地址:https://github.com/Zesuy/UA-Mask</p>
 	
 >
 这时候路由器应该是连接上校园网了。</p>
-<h1 id="22drcom-web认证">2.2Drcom web认证
-</h1><p>Web认证有两种方式，一种是前文1v7w大佬帖子(帖子链接:https://www.cnblogs.com/1v7w/p/17642767.html)里的shell脚本,第二种则是1v7w大佬做的的openwrt插件。<br>
-#配置获取
-在电脑上打开未认证时的登录网页，然后按F12(开发者模式)，打开网络(Network)选项，接着认证登录，点击其中几个包，找到形似截图的这个包.
+<h3 id="drcom-web认证-1">Drcom web认证
+</h3><p>Web认证有两种方式，一种是前文1v7w大佬帖子(帖子链接:https://www.cnblogs.com/1v7w/p/17642767.html)里的shell脚本,第二种则是1v7w大佬做的的openwrt插件。</p>
+<h4 id="配置获取">配置获取
+</h4><p>在电脑上打开未认证时的登录网页，然后按F12(开发者模式)，打开网络(Network)选项，接着认证登录，点击其中几个包，找到形似截图的这个包.
 <img src="/p/chinese/12.png"
 	width="1919"
 	height="1032"
@@ -524,9 +528,11 @@ server冒号后面的数字，记为port<br>
 wlan_ac_name=后面的字符串，直到&amp;为止(不包括&amp;下同)<br>
 wlan_user_ip=后面的ip，这是学校分配下的内网ip<br>
 远程地址(我的是172.22.44.46:801),这是校园网服务器的IP(把:与它后面的数字除去)
-(如果觉得麻烦可以交给AI来做)<br>
-贴出原作者的shell脚本,将以下配置换成自己的，然后上传至路由器的/etc/storage目录下,然后添加crontab计划任务,给予文件执行权限，如果没有/etc/storage目录，就创建
-执行权限获取</p>
+(如果觉得麻烦可以交给AI来做)</p>
+<h4 id="drcom登录脚本">DrCOM登录脚本
+</h4><p>贴出原作者的shell脚本,将以下配置换成自己的，然后上传至路由器的/etc/storage目录下,然后添加crontab计划任务,给予文件执行权限，如果没有/etc/storage目录，就创建
+执行权限获取<br>
+获取执行权限</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -535,7 +541,8 @@ wlan_user_ip=后面的ip，这是学校分配下的内网ip<br>
 <pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">chmod +x /etc/storage/drcom_cron.sh
 </span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><p>创建目录</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -806,8 +813,8 @@ wlan_user_ip=后面的ip，这是学校分配下的内网ip<br>
 保存文件<br>
 抓包完成后，再次以管理员身份打开 hosts 文件，删除这一行并保存</p>
 </blockquote>
-<h1 id="23-openwrt插件">2.3 openwrt插件
-</h1><p>插件地址如下，使用方法请看readme<br>
+<h3 id="openwrt插件">openwrt插件
+</h3><p>插件地址如下，使用方法请看readme<br>
 <a class="link" href="https://github.com/1v7w/openwrt-webdogcom"  target="_blank" rel="noopener"
     >https://github.com/1v7w/openwrt-webdogcom</a><br>
 <a class="link" href="https://github.com/1v7w/webdogcom"  target="_blank" rel="noopener"
