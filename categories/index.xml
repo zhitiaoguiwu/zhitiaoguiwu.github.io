@@ -8,6 +8,14 @@
         <language>zh-cn</language>
         <copyright>纸条(贵物)</copyright>
         <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://zhitiaoguiwu.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>教程</title>
+        <link>https://zhitiaoguiwu.github.io/categories/%E6%95%99%E7%A8%8B/</link>
+        <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zhitiaoguiwu.github.io/categories/%E6%95%99%E7%A8%8B/</guid>
+        <description>&lt;img src="https://zhitiaoguiwu.github.io/categories/%E6%95%99%E7%A8%8B/135840141_p0.png" alt="Featured image of post 教程" /&gt;</description>
+        </item>
+        <item>
         <title>软路由</title>
         <link>https://zhitiaoguiwu.github.io/categories/%E8%BD%AF%E8%B7%AF%E7%94%B1/</link>
         <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
@@ -22,14 +30,6 @@
         
         <guid>https://zhitiaoguiwu.github.io/categories/%E6%A0%A1%E5%9B%AD%E7%BD%91/</guid>
         <description></description>
-        </item>
-        <item>
-        <title>Test</title>
-        <link>https://zhitiaoguiwu.github.io/categories/test/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://zhitiaoguiwu.github.io/categories/test/</guid>
-        <description>&lt;img src="https://zhitiaoguiwu.github.io/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
         </item>
         
     </channel>

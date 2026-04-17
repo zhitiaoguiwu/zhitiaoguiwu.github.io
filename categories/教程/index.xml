@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>教程 on 纸条(贵物)</title>
+        <link>https://zhitiaoguiwu.github.io/categories/%E6%95%99%E7%A8%8B/</link>
+        <description>Recent content in 教程 on 纸条(贵物)</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>纸条(贵物)</copyright>
+        <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://zhitiaoguiwu.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>校园网多设备共享上网与openwrt的Drcom web认证总结</title>
+        <link>https://zhitiaoguiwu.github.io/p/wlan/</link>
+        <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zhitiaoguiwu.github.io/p/wlan/</guid>
+        <description>&lt;img src="https://zhitiaoguiwu.github.io/p/wlan/139866489_p0.jpg" alt="Featured image of post 校园网多设备共享上网与openwrt的Drcom web认证总结" /&gt;&lt;h1 id=&#34;前言&#34;&gt;前言
+&lt;/h1&gt;&lt;p&gt;在大二上时期也就是2025年下半年学校放弃了宽带，全面转变成WIFI,故方案采取的是无线中继 + web认证方式&lt;br&gt;
+感谢博客园大佬1v7w的帖子&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1v7w原帖子地址:https://www.cnblogs.com/1v7w/p/17642767.html&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;正文&#34;&gt;正文
+&lt;/h1&gt;&lt;h2 id=&#34;校园网绕过多设备限制原理&#34;&gt;校园网绕过多设备限制原理
+&lt;/h2&gt;&lt;p&gt;绕过多设备上网检测原理不在赘述,会在本小节结尾贴出对应的网址。&lt;br&gt;
+分别有UA3F,UA2F,UA-MASK可以绕过。笔者用的是UA3F。(会在本小节结尾贴出各自的github地址与UA3F官方教程)&lt;br&gt;
+UA3F的官方教程已经很简单了,故不会重复说明.请参考官方教程。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;多设备上网原理:https://blog.sunbk201.site/posts/crack-campus-network&lt;br&gt;
+UA3F github地址:https://github.com/SunBK201/UA3F&lt;br&gt;
+UA3F官方使用教程:https://sunbk201public.notion.site/UA3F-2a21f32cbb4b80669e04ec1f053d0333&lt;br&gt;
+UA2F github地址:https://github.com/Zxilly/UA2F&lt;br&gt;
+UA-MASK github地址:https://github.com/Zesuy/UA-Mask&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;drcom-web认证&#34;&gt;Drcom web认证
+&lt;/h2&gt;&lt;h3 id=&#34;无线中继有线可以跳过&#34;&gt;无线中继(有线可以跳过)
+&lt;/h3&gt;&lt;p&gt;点击网络——无线,找到并点击扫描
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/1.png&#34;
+	width=&#34;1900&#34;
+	height=&#34;874&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/1_hu14413549748108204350.png 480w, https://zhitiaoguiwu.github.io/p/wlan/1_hu16575843720614937455.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;217&#34;
+		data-flex-basis=&#34;521px&#34;
+	
+&gt;
+然后挑一个信号强的点击加入网络
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/2.png&#34;
+	width=&#34;1919&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/2_hu9032267432139423368.png 480w, https://zhitiaoguiwu.github.io/p/wlan/2_hu14762820165376374043.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;218&#34;
+		data-flex-basis=&#34;523px&#34;
+	
+&gt;
+然后点击提交
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/3.png&#34;
+	width=&#34;1914&#34;
+	height=&#34;878&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/3_hu13079795515282207111.png 480w, https://zhitiaoguiwu.github.io/p/wlan/3_hu18209862104024260026.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;217&#34;
+		data-flex-basis=&#34;523px&#34;
+	
+&gt;
+模式为客户端(cilent)即可
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/4.png&#34;
+	width=&#34;1906&#34;
+	height=&#34;884&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/4_hu11356775198153281202.png 480w, https://zhitiaoguiwu.github.io/p/wlan/4_hu5424267270216285906.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;4&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;215&#34;
+		data-flex-basis=&#34;517px&#34;
+	
+&gt;
+这时候路由器应该是连接上校园网了。&lt;/p&gt;
+&lt;h3 id=&#34;drcom-web认证-1&#34;&gt;Drcom web认证
+&lt;/h3&gt;&lt;p&gt;Web认证有两种方式，一种是前文1v7w大佬帖子(帖子链接:https://www.cnblogs.com/1v7w/p/17642767.html)里的shell脚本,第二种则是1v7w大佬做的的openwrt插件。&lt;/p&gt;
+&lt;h4 id=&#34;配置获取&#34;&gt;配置获取
+&lt;/h4&gt;&lt;p&gt;在电脑上打开未认证时的登录网页，然后按F12(开发者模式)，打开网络(Network)选项，接着认证登录，点击其中几个包，找到形似截图的这个包.
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/12.png&#34;
+	width=&#34;1919&#34;
+	height=&#34;1032&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/12_hu7618952164583288411.png 480w, https://zhitiaoguiwu.github.io/p/wlan/12_hu3054420131111375178.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;12&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;446px&#34;
+	
+&gt;
+点击带有login?callback&amp;hellip;&amp;hellip;.的包
+&lt;img src=&#34;https://zhitiaoguiwu.github.io/p/wlan/13.png&#34;
+	width=&#34;1053&#34;
+	height=&#34;842&#34;
+	srcset=&#34;https://zhitiaoguiwu.github.io/p/wlan/13_hu8274208422228074892.png 480w, https://zhitiaoguiwu.github.io/p/wlan/13_hu8919525789661650441.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;13&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;125&#34;
+		data-flex-basis=&#34;300px&#34;
+	
+&gt;
+看到请求网址那里，需要记录下：&lt;br&gt;
+请求网址开头的ip，记为server。&lt;br&gt;
+server冒号后面的数字，记为port&lt;br&gt;
+wlan_ac_name=后面的字符串，直到&amp;amp;为止(不包括&amp;amp;下同)&lt;br&gt;
+wlan_user_ip=后面的ip，这是学校分配下的内网ip&lt;br&gt;
+远程地址(我的是172.22.44.46:801),这是校园网服务器的IP(把:与它后面的数字除去)
+(如果觉得麻烦可以交给AI来做)&lt;/p&gt;
+&lt;h4 id=&#34;drcom登录脚本&#34;&gt;DrCOM登录脚本
+&lt;/h4&gt;&lt;p&gt;贴出原作者的shell脚本,将以下配置换成自己的，然后上传至路由器的/etc/storage目录下,然后添加crontab计划任务,给予文件执行权限，如果没有/etc/storage目录，就创建
+执行权限获取&lt;br&gt;
+获取执行权限&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Markdown&#34; data-lang=&#34;Markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x /etc/storage/drcom_cron.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;创建目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Markdown&#34; data-lang=&#34;Markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /etc/storage/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Markdown&#34; data-lang=&#34;Markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 西安石油大学 校园网登录脚本 2023.08
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 适用于: openwrt
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# by: 1v7w
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 本脚本保存至 /etc/storage/drcom_cron.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 添加计划任务
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;#『系统 - 计划任务』
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# */10 * * * * /etc/storage/drcom_cron.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# --------- 配置区 ---------
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;server=10.123.0.253     # 修改成你校校园服务器IP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;user=202000000000		# 修改成你的账号
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;password=&amp;#34;password&amp;#34;		# 修改成你的密码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wlanacname=&amp;#34;HUXIAN_C1_1F_107_H3C_AC_01&amp;#34;	# 修改成你所连接的AP的名字
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# --------- 配置区 ---------
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;html_file=&amp;#34;/tmp/drcom_html.log&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;login_out_file=&amp;#34;/tmp/drcom_login.log&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;开始定时检测&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -s &amp;#34;http://${server}&amp;#34; &amp;gt; ${html_file}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;check_web=`grep &amp;#34;Dr.COMWeb&amp;#34; ${html_file} | head -n1`
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;check_status=`grep &amp;#34;Dr.COMWebLoginID_0.htm&amp;#34; ${html_file} | head -n1`
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# Dr.COMWebLoginID_0.htm 登录页（未登录）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# Dr.COMWebLoginID_1.htm 注销页（已登录）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# Dr.COMWebLoginID_2.htm 登录失败页
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# Dr.COMWebLoginID_3.htm 登录成功页
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if [[ &amp;#34;$check_web&amp;#34; == &amp;#34;&amp;#34; ]]; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;访问认证网页失败&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;elif [[ &amp;#34;$check_status&amp;#34; != &amp;#34;&amp;#34; ]]; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;ni&#34;&gt;#尚未登录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;上网登录窗尚未登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    # 此处如果不能正确获取ip则需要进行修改
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ip=$(ifconfig | grep inet | grep -v inet6 | grep -v 127 | grep -v 192 | awk &amp;#39;{print $(NF-2)}&amp;#39; | cut -d &amp;#39;:&amp;#39; -f2)	# 这里如果不能获取到内网ip则自己修改试试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if [[ &amp;#34;$ip&amp;#34; == &amp;#34;&amp;#34; ]]; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;获取当前内网ip失败&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    else
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      timestamp_0=&amp;#34;$(date +%s)526&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;当前内网ip：${ip}&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      timestamp_1=&amp;#34;$(date +%s)153&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      url=&amp;#34;http://${server}:801/eportal/?c=Portal&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;a=login&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;callback=dr${timestamp_1}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;login_method=1&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;user_account=${user}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;user_password=${password}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_user_ip=${ip}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_user_mac=000000000000&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_ac_ip=&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_ac_name=${wlanacname}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;jsVersion=3.0&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;_=${timestamp_0}&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      echo $url
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      curl -s &amp;#34;$url&amp;#34; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      -H &amp;#39;Connection: keep-alive&amp;#39; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      -H &amp;#39;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36 Edg/89.0.774.57&amp;#39; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      -H &amp;#39;Accept: &lt;span class=&#34;ge&#34;&gt;*/*&lt;/span&gt;&amp;#39; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      -H &amp;#39;Referer: http://${server}/&amp;#39; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      -H &amp;#39;Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&amp;#39; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;      &amp;gt; &lt;/span&gt;&lt;span class=&#34;ge&#34;&gt;${login_out_file}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;ge&#34;&gt;&lt;/span&gt;      result=`grep -Eo &amp;#39;&amp;#34;result&amp;#34;:&amp;#34;[0-9]+&amp;#34;&amp;#39; ${login_out_file} | sed -r &amp;#39;s/&amp;#34;result&amp;#34;:&amp;#34;([0-9]+)&amp;#34;/\1/g&amp;#39;`
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      result=`[[ &amp;#34;$result&amp;#34; == 1 || &amp;#34;$result&amp;#34; == &amp;#34;ok&amp;#34; ]] &lt;span class=&#34;err&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; echo &amp;#34;登录成功&amp;#34; || echo &amp;#34;登录失败&amp;#34;`
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;上网登录窗未登录，尝试登录结果：${result} &amp;#34; &lt;span class=&#34;sb&#34;&gt;`cat ${login_out_file}`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;else
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;ni&#34;&gt;#已经登录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;上网登录窗之前已登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logger -t &amp;#34;【Dr.COM网页认证】&amp;#34; &amp;#34;结束定时检测&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果上述脚本在测试中出现断流(打游戏出现断线),可以试试笔者基于1v7w脚本修改优化的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Markdown&#34; data-lang=&#34;Markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;#重庆财经职业学院 校园网登录脚本
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;server=172.22.44.46    &lt;span class=&#34;ni&#34;&gt;#修改成你校校园网服务器IP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;user=202400000000      &lt;span class=&#34;ni&#34;&gt;#修改成你的账号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;password=&amp;#34;00000000&amp;#34;    &lt;span class=&#34;ni&#34;&gt;#修改成你的密码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wlanacname=&amp;#34;&amp;#34;  # 修改成你所连接的AP的名字,我的环境不需要
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;html_file=&amp;#34;/tmp/drcom_html.log&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;login_out_file=&amp;#34;/tmp/drcom_login.log&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;开始检测网络&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 1. 先 ping 认证服务器（判断是否在校园网环境）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;if ! ping -c 2 -W 2 &amp;#34;$server&amp;#34; &amp;gt; /dev/null 2&amp;gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;1;&lt;/span&gt; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;无法 ping 通 $server，未连接到校园网，退出&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    echo &amp;#34;未连接到校园网，退出脚本&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    exit 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 2. 再 ping 外网（判断是否已登录且网络正常）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;if ping -c 1 -W 2 baidu.com &amp;gt; /dev/null 2&amp;gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;1;&lt;/span&gt; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;外网已通，无需登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    echo &amp;#34;外网已通，无需登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    exit 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;网络受限，尝试登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;echo &amp;#34;网络受限，执行登录操作&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 3. 获取内网 IP
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;dev=$(ip -4 route get 1 | awk &amp;#39;{print $5; exit}&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ip=$(ip -4 addr show dev &amp;#34;$dev&amp;#34; | grep -o &amp;#39;inet [0-9.]*&amp;#39; | awk &amp;#39;{print $2}&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if [ -z &amp;#34;$ip&amp;#34; ]; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;无法获取内网IP&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    echo &amp;#34;无法获取内网IP&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    exit 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;# 4. 访问认证页面确认未登录状态
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;curl -s &amp;#34;http://${server}&amp;#34; &amp;gt; ${html_file}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if grep -q &amp;#34;Dr.COMWebLoginID_0.htm&amp;#34; ${html_file}; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;未登录状态，开始登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    echo &amp;#34;未登录，开始登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    url=&amp;#34;http://${server}:801/eportal/portal/login?callback=dr1004&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;login_method=1&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;user_account=%2C0%2C${user}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;user_password=${password}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_user_ip=${ip}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_user_ipv6=&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_user_mac=000000000000&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_ac_ip=&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;wlan_ac_name=${wlanacname}&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;jsVersion=4.2.1&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;terminal_type=1&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;lang=zh-cn&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;v=6528&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;lang=zh&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    curl -s &amp;#34;$url&amp;#34; -H &amp;#34;Referer: http://${server}/&amp;#34; &amp;gt; ${login_out_file}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if grep -q &amp;#39;&amp;#34;result&amp;#34;:1&amp;#39; ${login_out_file} || grep -q &amp;#39;&amp;#34;result&amp;#34;:&amp;#34;ok&amp;#34;&amp;#39; ${login_out_file}; then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;登录成功&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        echo &amp;#34;登录成功&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    else
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;登录失败&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        echo &amp;#34;登录失败&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;else
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;页面状态异常（可能已登录）但外网不通，尝试重新登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    echo &amp;#34;页面状态异常，尝试重新登录&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;logger -t &amp;#34;DrCOM&amp;#34; &amp;#34;登录检测完成&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;echo &amp;#34;登录检测完成&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;注意:部分校园网在认证成功后会立即跳转到百度等网站，导致开发者工具中的登录请求一闪而过，来不及抓包.&lt;br&gt;
+提供一个操作思路&lt;br&gt;
+以管理员身份打开记事本（右键记事本 → 以管理员身份运行）&lt;br&gt;
+打开 C:\Windows\System32\drivers\etc\hosts&lt;br&gt;
+在末尾添加一行：127.0.0.1 &lt;a class=&#34;link&#34; href=&#34;https://www.baidu.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;www.baidu.com&lt;/a&gt;&lt;br&gt;
+保存文件&lt;br&gt;
+抓包完成后，再次以管理员身份打开 hosts 文件，删除这一行并保存&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;openwrt插件&#34;&gt;openwrt插件
+&lt;/h3&gt;&lt;p&gt;插件地址如下，使用方法请看readme&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/1v7w/openwrt-webdogcom&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/1v7w/openwrt-webdogcom&lt;/a&gt;&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/1v7w/webdogcom&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/1v7w/webdogcom&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
