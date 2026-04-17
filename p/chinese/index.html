@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="适用openwrt，DrCOM">
+<title>校园网多设备共享上网与openwrt的Drcom web认证总结</title>
+
+<link rel='canonical' href='https://zhitiaoguiwu.github.io/p/chinese/'>
+
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="校园网多设备共享上网与openwrt的Drcom web认证总结">
+<meta property='og:description' content="适用openwrt，DrCOM">
+<meta property='og:url' content='https://zhitiaoguiwu.github.io/p/chinese/'>
+<meta property='og:site_name' content='纸条(贵物)'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://zhitiaoguiwu.github.io/p/chinese/139866489_p0.jpg' />
+<meta name="twitter:title" content="校园网多设备共享上网与openwrt的Drcom web认证总结">
+<meta name="twitter:description" content="适用openwrt，DrCOM"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zhitiaoguiwu.github.io/p/chinese/139866489_p0.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu5133240587379684229.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😇</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">纸条(贵物)</a></h1>
+            <h2 class="site-description">欢迎来到我的个人纪录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zhitiaoguiwu.github.io/en/" >English</option>
+                                
+                                    <option value="https://zhitiaoguiwu.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://zhitiaoguiwu.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#1校园网绕过多设备限制原理">1.校园网绕过多设备限制原理</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#21无线中继有线可以跳过">2.1无线中继(有线可以跳过)</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/chinese/">
+                <img src="/p/chinese/139866489_p0_hu4896516077291546073.jpg"
+                        srcset="/p/chinese/139866489_p0_hu4896516077291546073.jpg 800w, /p/chinese/139866489_p0_hu3896963213352664015.jpg 1600w"
+                        width="800" 
+                        height="633" 
+                        loading="lazy"
+                        alt="Featured image of post 校园网多设备共享上网与openwrt的Drcom web认证总结" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%A0%A1%E5%9B%AD%E7%BD%91/" >
+                校园网
+            </a>
+        
+            <a href="/categories/%E8%BD%AF%E8%B7%AF%E7%94%B1/" >
+                软路由
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/chinese/">校园网多设备共享上网与openwrt的Drcom web认证总结</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            适用openwrt，DrCOM
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 17, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>在大二上时期也就是2025年下半年学校放弃了宽带，全面转变成WIFI,故方案采取的是无线中继 + web认证方式<br>
+感谢博客园大佬1v7w的帖子</p>
+<blockquote>
+<p>1v7w原帖子地址:https://www.cnblogs.com/1v7w/p/17642767.html</p>
+</blockquote>
+<h1 id="正文">正文
+</h1><h2 id="1校园网绕过多设备限制原理">1.校园网绕过多设备限制原理
+</h2><p>绕过多设备上网检测原理不在赘述会在本小节结尾贴出对应的网址。<br>
+分别有UA3F,UA2F,UA-MASK可以绕过。笔者用的是UA3F。(会在本小节结尾贴出各自的github地址与UA3F官方教程)</p>
+<blockquote>
+<p>多设备上网原理:https://blog.sunbk201.site/posts/crack-campus-network<br>
+UA3F github地址:https://github.com/SunBK201/UA3F
+UA3F官方使用教程:https://sunbk201public.notion.site/UA3F-2a21f32cbb4b80669e04ec1f053d0333<br>
+UA2F github地址:https://github.com/Zxilly/UA2F<br>
+UA-MASK github地址:https://github.com/Zesuy/UA-Mask</p>
+</blockquote>
+<h1 id="2drcom-web认证">2.Drcom web认证
+</h1><h2 id="21无线中继有线可以跳过">2.1无线中继(有线可以跳过)
+</h2><p>点击网络——无线,找到并点击扫描
+<img src="/p/chinese/1.png"
+	width="1900"
+	height="874"
+	srcset="/p/chinese/1_hu14413549748108204350.png 480w, /p/chinese/1_hu16575843720614937455.png 1024w"
+	loading="lazy"
+	
+		alt="1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="217"
+		data-flex-basis="521px"
+	
+>
+然后挑一个信号强的点击加入网络
+<img src="/p/chinese/2.png"
+	width="1919"
+	height="880"
+	srcset="/p/chinese/2_hu9032267432139423368.png 480w, /p/chinese/2_hu14762820165376374043.png 1024w"
+	loading="lazy"
+	
+		alt="2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="218"
+		data-flex-basis="523px"
+	
+>
+然后点击提交
+<img src="/p/chinese/3.png"
+	width="1914"
+	height="878"
+	srcset="/p/chinese/3_hu13079795515282207111.png 480w, /p/chinese/3_hu18209862104024260026.png 1024w"
+	loading="lazy"
+	
+		alt="3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="217"
+		data-flex-basis="523px"
+	
+>
+模式为客户端(cilent)即可
+<img src="/p/chinese/4.png"
+	width="1906"
+	height="884"
+	srcset="/p/chinese/4_hu11356775198153281202.png 480w, /p/chinese/4_hu5424267270216285906.png 1024w"
+	loading="lazy"
+	
+		alt="4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
+	
+>
+这时候路由器应该是连接上校园网了。</p>
+<h1 id="22drcom-web认证">2.2Drcom web认证
+</h1><p>Web认证有两种方式，一种是前文1v7w大佬帖子(帖子链接:https://www.cnblogs.com/1v7w/p/17642767.html)里的shell脚本,第二种则是1v7w大佬做的的openwrt插件。<br>
+#配置获取
+在电脑上打开未认证时的登录网页，然后按F12(开发者模式)，打开网络(Network)选项，接着认证登录，点击其中几个包，找到形似截图的这个包.
+<img src="/p/chinese/12.png"
+	width="1919"
+	height="1032"
+	srcset="/p/chinese/12_hu7618952164583288411.png 480w, /p/chinese/12_hu3054420131111375178.png 1024w"
+	loading="lazy"
+	
+		alt="12"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="446px"
+	
+>
+点击带有login?callback&hellip;&hellip;.的包
+<img src="/p/chinese/13.png"
+	width="1053"
+	height="842"
+	srcset="/p/chinese/13_hu8274208422228074892.png 480w, /p/chinese/13_hu8919525789661650441.png 1024w"
+	loading="lazy"
+	
+		alt="13"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="300px"
+	
+>
+看到请求网址那里，需要记录下：<br>
+请求网址开头的ip，记为server。<br>
+server冒号后面的数字，记为port<br>
+wlan_ac_name=后面的字符串，直到&amp;为止(不包括&amp;下同)<br>
+wlan_user_ip=后面的ip，这是学校分配下的内网ip<br>
+远程地址(我的是172.22.44.46:801),这是校园网服务器的IP(把:与它后面的数字除去)
+(如果觉得麻烦可以交给AI来做)<br>
+贴出原作者的shell脚本,将以下配置换成自己的，然后上传至路由器的/etc/storage目录下,然后添加crontab计划任务,给予文件执行权限，如果没有/etc/storage目录，就创建
+执行权限获取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">chmod +x /etc/storage/drcom_cron.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl">mkdir /etc/storage/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl"><span class="gh">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="gh"># 西安石油大学 校园网登录脚本 2023.08
+</span></span></span><span class="line"><span class="cl"><span class="gh"># 适用于: openwrt
+</span></span></span><span class="line"><span class="cl"><span class="gh"># by: 1v7w
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl"><span class="gh"># 本脚本保存至 /etc/storage/drcom_cron.sh
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl"><span class="gh"># 添加计划任务
+</span></span></span><span class="line"><span class="cl"><span class="gh">#『系统 - 计划任务』
+</span></span></span><span class="line"><span class="cl"><span class="gh"># */10 * * * * /etc/storage/drcom_cron.sh
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl"><span class="gh"># --------- 配置区 ---------
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>server=10.123.0.253     # 修改成你校校园服务器IP
+</span></span><span class="line"><span class="cl">user=202000000000		# 修改成你的账号
+</span></span><span class="line"><span class="cl">password=&#34;password&#34;		# 修改成你的密码
+</span></span><span class="line"><span class="cl">wlanacname=&#34;HUXIAN_C1_1F_107_H3C_AC_01&#34;	# 修改成你所连接的AP的名字
+</span></span><span class="line"><span class="cl"><span class="gh"># --------- 配置区 ---------
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl">html_file=&#34;/tmp/drcom_html.log&#34;
+</span></span><span class="line"><span class="cl">login_out_file=&#34;/tmp/drcom_login.log&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logger -t &#34;【Dr.COM网页认证】&#34; &#34;开始定时检测&#34;
+</span></span><span class="line"><span class="cl">curl -s &#34;http://${server}&#34; &gt; ${html_file}
+</span></span><span class="line"><span class="cl">check_web=`grep &#34;Dr.COMWeb&#34; ${html_file} | head -n1`
+</span></span><span class="line"><span class="cl">check_status=`grep &#34;Dr.COMWebLoginID_0.htm&#34; ${html_file} | head -n1`
+</span></span><span class="line"><span class="cl"><span class="gh"># Dr.COMWebLoginID_0.htm 登录页（未登录）
+</span></span></span><span class="line"><span class="cl"><span class="gh"># Dr.COMWebLoginID_1.htm 注销页（已登录）
+</span></span></span><span class="line"><span class="cl"><span class="gh"># Dr.COMWebLoginID_2.htm 登录失败页
+</span></span></span><span class="line"><span class="cl"><span class="gh"># Dr.COMWebLoginID_3.htm 登录成功页
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>
+</span></span><span class="line"><span class="cl">if [[ &#34;$check_web&#34; == &#34;&#34; ]]; then
+</span></span><span class="line"><span class="cl">  logger -t &#34;【Dr.COM网页认证】&#34; &#34;访问认证网页失败&#34;
+</span></span><span class="line"><span class="cl">elif [[ &#34;$check_status&#34; != &#34;&#34; ]]; then
+</span></span><span class="line"><span class="cl">    <span class="ni">#尚未登录</span>
+</span></span><span class="line"><span class="cl">    logger -t &#34;【Dr.COM网页认证】&#34; &#34;上网登录窗尚未登录&#34;
+</span></span><span class="line"><span class="cl">    # 此处如果不能正确获取ip则需要进行修改
+</span></span><span class="line"><span class="cl">    ip=$(ifconfig | grep inet | grep -v inet6 | grep -v 127 | grep -v 192 | awk &#39;{print $(NF-2)}&#39; | cut -d &#39;:&#39; -f2)	# 这里如果不能获取到内网ip则自己修改试试
+</span></span><span class="line"><span class="cl">    if [[ &#34;$ip&#34; == &#34;&#34; ]]; then
+</span></span><span class="line"><span class="cl">      logger -t &#34;【Dr.COM网页认证】&#34; &#34;获取当前内网ip失败&#34;
+</span></span><span class="line"><span class="cl">    else
+</span></span><span class="line"><span class="cl">      timestamp_0=&#34;$(date +%s)526&#34;
+</span></span><span class="line"><span class="cl">      logger -t &#34;【Dr.COM网页认证】&#34; &#34;当前内网ip：${ip}&#34;
+</span></span><span class="line"><span class="cl">      timestamp_1=&#34;$(date +%s)153&#34;
+</span></span><span class="line"><span class="cl">      url=&#34;http://${server}:801/eportal/?c=Portal<span class="err">&amp;</span>a=login<span class="err">&amp;</span>callback=dr${timestamp_1}<span class="err">&amp;</span>login_method=1<span class="err">&amp;</span>user_account=${user}<span class="err">&amp;</span>user_password=${password}<span class="err">&amp;</span>wlan_user_ip=${ip}<span class="err">&amp;</span>wlan_user_mac=000000000000<span class="err">&amp;</span>wlan_ac_ip=<span class="err">&amp;</span>wlan_ac_name=${wlanacname}<span class="err">&amp;</span>jsVersion=3.0<span class="err">&amp;</span>_=${timestamp_0}&#34;
+</span></span><span class="line"><span class="cl">      echo $url
+</span></span><span class="line"><span class="cl">      curl -s &#34;$url&#34; \
+</span></span><span class="line"><span class="cl">      -H &#39;Connection: keep-alive&#39; \
+</span></span><span class="line"><span class="cl">      -H &#39;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36 Edg/89.0.774.57&#39; \
+</span></span><span class="line"><span class="cl">      -H &#39;Accept: <span class="ge">*/*</span>&#39; \
+</span></span><span class="line"><span class="cl">      -H &#39;Referer: http://${server}/&#39; \
+</span></span><span class="line"><span class="cl">      -H &#39;Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#39; \
+</span></span><span class="line"><span class="cl"><span class="k">      &gt; </span><span class="ge">${login_out_file}
+</span></span></span><span class="line"><span class="cl"><span class="ge"></span>      result=`grep -Eo &#39;&#34;result&#34;:&#34;[0-9]+&#34;&#39; ${login_out_file} | sed -r &#39;s/&#34;result&#34;:&#34;([0-9]+)&#34;/\1/g&#39;`
+</span></span><span class="line"><span class="cl">      result=`[[ &#34;$result&#34; == 1 || &#34;$result&#34; == &#34;ok&#34; ]] <span class="err">&amp;&amp;</span> echo &#34;登录成功&#34; || echo &#34;登录失败&#34;`
+</span></span><span class="line"><span class="cl">      logger -t &#34;【Dr.COM网页认证】&#34; &#34;上网登录窗未登录，尝试登录结果：${result} &#34; <span class="sb">`cat ${login_out_file}`</span>
+</span></span><span class="line"><span class="cl">    fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">else
+</span></span><span class="line"><span class="cl">    <span class="ni">#已经登录</span>
+</span></span><span class="line"><span class="cl">    logger -t &#34;【Dr.COM网页认证】&#34; &#34;上网登录窗之前已登录&#34;
+</span></span><span class="line"><span class="cl">fi
+</span></span><span class="line"><span class="cl">logger -t &#34;【Dr.COM网页认证】&#34; &#34;结束定时检测&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果上述脚本在测试中出现断流(打游戏出现断线),可以试试笔者基于1v7w脚本修改优化的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Markdown" data-lang="Markdown"><span class="line"><span class="cl"><span class="gh">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="gh">#重庆财经职业学院 校园网登录脚本
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>server=172.22.44.46    <span class="ni">#修改成你校校园网服务器IP</span>
+</span></span><span class="line"><span class="cl">user=202400000000      <span class="ni">#修改成你的账号</span>
+</span></span><span class="line"><span class="cl">password=&#34;00000000&#34;    <span class="ni">#修改成你的密码</span>
+</span></span><span class="line"><span class="cl">wlanacname=&#34;&#34;  # 修改成你所连接的AP的名字,我的环境不需要
+</span></span><span class="line"><span class="cl">html_file=&#34;/tmp/drcom_html.log&#34;
+</span></span><span class="line"><span class="cl">login_out_file=&#34;/tmp/drcom_login.log&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logger -t &#34;DrCOM&#34; &#34;开始检测网络&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 1. 先 ping 认证服务器（判断是否在校园网环境）
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>if ! ping -c 2 -W 2 &#34;$server&#34; &gt; /dev/null 2&gt;<span class="ni">&amp;1;</span> then
+</span></span><span class="line"><span class="cl">    logger -t &#34;DrCOM&#34; &#34;无法 ping 通 $server，未连接到校园网，退出&#34;
+</span></span><span class="line"><span class="cl">    echo &#34;未连接到校园网，退出脚本&#34;
+</span></span><span class="line"><span class="cl">    exit 0
+</span></span><span class="line"><span class="cl">fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 2. 再 ping 外网（判断是否已登录且网络正常）
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>if ping -c 1 -W 2 baidu.com &gt; /dev/null 2&gt;<span class="ni">&amp;1;</span> then
+</span></span><span class="line"><span class="cl">    logger -t &#34;DrCOM&#34; &#34;外网已通，无需登录&#34;
+</span></span><span class="line"><span class="cl">    echo &#34;外网已通，无需登录&#34;
+</span></span><span class="line"><span class="cl">    exit 0
+</span></span><span class="line"><span class="cl">fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logger -t &#34;DrCOM&#34; &#34;网络受限，尝试登录&#34;
+</span></span><span class="line"><span class="cl">echo &#34;网络受限，执行登录操作&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 3. 获取内网 IP
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>dev=$(ip -4 route get 1 | awk &#39;{print $5; exit}&#39;)
+</span></span><span class="line"><span class="cl">ip=$(ip -4 addr show dev &#34;$dev&#34; | grep -o &#39;inet [0-9.]*&#39; | awk &#39;{print $2}&#39;)
+</span></span><span class="line"><span class="cl">if [ -z &#34;$ip&#34; ]; then
+</span></span><span class="line"><span class="cl">    logger -t &#34;DrCOM&#34; &#34;无法获取内网IP&#34;
+</span></span><span class="line"><span class="cl">    echo &#34;无法获取内网IP&#34;
+</span></span><span class="line"><span class="cl">    exit 1
+</span></span><span class="line"><span class="cl">fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># 4. 访问认证页面确认未登录状态
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span>curl -s &#34;http://${server}&#34; &gt; ${html_file}
+</span></span><span class="line"><span class="cl">if grep -q &#34;Dr.COMWebLoginID_0.htm&#34; ${html_file}; then
+</span></span><span class="line"><span class="cl">    logger -t &#34;DrCOM&#34; &#34;未登录状态，开始登录&#34;
+</span></span><span class="line"><span class="cl">    echo &#34;未登录，开始登录&#34;
+</span></span><span class="line"><span class="cl">    url=&#34;http://${server}:801/eportal/portal/login?callback=dr1004<span class="err">&amp;</span>login_method=1<span class="err">&amp;</span>user_account=%2C0%2C${user}<span class="err">&amp;</span>user_password=${password}<span class="err">&amp;</span>wlan_user_ip=${ip}<span class="err">&amp;</span>wlan_user_ipv6=<span class="err">&amp;</span>wlan_user_mac=000000000000<span class="err">&amp;</span>wlan_ac_ip=<span class="err">&amp;</span>wlan_ac_name=${wlanacname}<span class="err">&amp;</span>jsVersion=4.2.1<span class="err">&amp;</span>terminal_type=1<span class="err">&amp;</span>lang=zh-cn<span class="err">&amp;</span>v=6528<span class="err">&amp;</span>lang=zh&#34;
+</span></span><span class="line"><span class="cl">    curl -s &#34;$url&#34; -H &#34;Referer: http://${server}/&#34; &gt; ${login_out_file}
+</span></span><span class="line"><span class="cl">    if grep -q &#39;&#34;result&#34;:1&#39; ${login_out_file} || grep -q &#39;&#34;result&#34;:&#34;ok&#34;&#39; ${login_out_file}; then
+</span></span><span class="line"><span class="cl">        logger -t &#34;DrCOM&#34; &#34;登录成功&#34;
+</span></span><span class="line"><span class="cl">        echo &#34;登录成功&#34;
+</span></span><span class="line"><span class="cl">    else
+</span></span><span class="line"><span class="cl">        logger -t &#34;DrCOM&#34; &#34;登录失败&#34;
+</span></span><span class="line"><span class="cl">        echo &#34;登录失败&#34;
+</span></span><span class="line"><span class="cl">    fi
+</span></span><span class="line"><span class="cl">else
+</span></span><span class="line"><span class="cl">    logger -t &#34;DrCOM&#34; &#34;页面状态异常（可能已登录）但外网不通，尝试重新登录&#34;
+</span></span><span class="line"><span class="cl">    echo &#34;页面状态异常，尝试重新登录&#34;
+</span></span><span class="line"><span class="cl">fi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logger -t &#34;DrCOM&#34; &#34;登录检测完成&#34;
+</span></span><span class="line"><span class="cl">echo &#34;登录检测完成&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意:部分校园网在认证成功后会立即跳转到百度等网站，导致开发者工具中的登录请求一闪而过，来不及抓包。
+提供一个操作思路
+以管理员身份打开记事本（右键记事本 → 以管理员身份运行）
+打开 C:\Windows\System32\drivers\etc\hosts
+在末尾添加一行：127.0.0.1 <a class="link" href="https://www.baidu.com"  target="_blank" rel="noopener"
+    >www.baidu.com</a>
+保存文件
+抓包完成后，再次以管理员身份打开 hosts 文件，删除这一行并保存</p>
+</blockquote>
+<h1 id="23-openwrt插件">2.3 openwrt插件
+</h1><p>插件地址如下，使用方法请看readme<br>
+<a class="link" href="https://github.com/1v7w/openwrt-webdogcom"  target="_blank" rel="noopener"
+    >https://github.com/1v7w/openwrt-webdogcom</a><br>
+<a class="link" href="https://github.com/1v7w/webdogcom"  target="_blank" rel="noopener"
+    >https://github.com/1v7w/webdogcom</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 纸条(贵物)
+    </section>
+    
+    <section class="powerby">
+        
+            114514 <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
