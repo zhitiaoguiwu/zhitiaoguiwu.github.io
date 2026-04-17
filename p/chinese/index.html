@@ -412,8 +412,9 @@
 </blockquote>
 <h1 id="正文">正文
 </h1><h2 id="1校园网绕过多设备限制原理">1.校园网绕过多设备限制原理
-</h2><p>绕过多设备上网检测原理不在赘述会在本小节结尾贴出对应的网址。<br>
-分别有UA3F,UA2F,UA-MASK可以绕过。笔者用的是UA3F。(会在本小节结尾贴出各自的github地址与UA3F官方教程)</p>
+</h2><p>绕过多设备上网检测原理不在赘述,会在本小节结尾贴出对应的网址。<br>
+分别有UA3F,UA2F,UA-MASK可以绕过。笔者用的是UA3F。(会在本小节结尾贴出各自的github地址与UA3F官方教程)<br>
+UA3F的官方教程已经很简单了,故不会重复说明.请参考官方教程。</p>
 <blockquote>
 <p>多设备上网原理:https://blog.sunbk201.site/posts/crack-campus-network<br>
 UA3F github地址:https://github.com/SunBK201/UA3F<br>
@@ -796,13 +797,13 @@ wlan_user_ip=后面的ip，这是学校分配下的内网ip<br>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>注意:部分校园网在认证成功后会立即跳转到百度等网站，导致开发者工具中的登录请求一闪而过，来不及抓包。
-提供一个操作思路
-以管理员身份打开记事本（右键记事本 → 以管理员身份运行）
-打开 C:\Windows\System32\drivers\etc\hosts
+<p>注意:部分校园网在认证成功后会立即跳转到百度等网站，导致开发者工具中的登录请求一闪而过，来不及抓包.<br>
+提供一个操作思路<br>
+以管理员身份打开记事本（右键记事本 → 以管理员身份运行）<br>
+打开 C:\Windows\System32\drivers\etc\hosts<br>
 在末尾添加一行：127.0.0.1 <a class="link" href="https://www.baidu.com"  target="_blank" rel="noopener"
-    >www.baidu.com</a>
-保存文件
+    >www.baidu.com</a><br>
+保存文件<br>
 抓包完成后，再次以管理员身份打开 hosts 文件，删除这一行并保存</p>
 </blockquote>
 <h1 id="23-openwrt插件">2.3 openwrt插件
