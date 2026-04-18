@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories_hierarchy on Example Site</title>
-        <link>https://zhitiaoguiwu.github.io/en/categories_hierarchy/</link>
+        <link>http://localhost:1313/en/categories_hierarchy/</link>
         <description>Recent content in Categories_hierarchy on Example Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <copyright>纸条(贵物)</copyright><atom:link href="https://zhitiaoguiwu.github.io/en/categories_hierarchy/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>纸条(贵物)</copyright><atom:link href="http://localhost:1313/en/categories_hierarchy/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>
