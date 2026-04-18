@@ -488,18 +488,28 @@
     background-size: cover;
     background-attachment: fixed;
   }
-  
-    body.dark::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);   
-        pointer-events: none;             
-        z-index: -1;
-    }
 </style>
+
+<script defer src="https://events.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+
     </body>
 </html>
